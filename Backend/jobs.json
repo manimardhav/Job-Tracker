@@ -1,0 +1,23 @@
+[
+    {
+        "company": "google",
+        "role": "intern",
+        "status": "Rejected",
+        "date": "2026-08-09",
+        "id": 1
+    },
+    {
+        "company": "Amazon",
+        "role": "sde",
+        "status": "Rejected",
+        "date": "2026-06-09",
+        "id": 2
+    },
+    {
+        "company": "microsoft",
+        "role": "sde",
+        "status": "Applied",
+        "date": "2026-06-09",
+        "id": 3
+    }
+]
