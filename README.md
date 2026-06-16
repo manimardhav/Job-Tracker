@@ -1,4 +1,4 @@
-cat > ~/Desktop/Job\ Tracker/README.md << 'EOF'
+
 # 🚀 JobTracker AI — Production-Grade Application Pipeline
 
 An enterprise-ready, AI-augmented job tracking and career intelligence ecosystem. Built using **FastAPI** and powered by **Llama 3.3 (via Groq Cloud)**, this system automates the job tracking lifecycle and uses advanced LLM inference to instantly extract technical requirements and generate real-time interview questions from unstructured job descriptions.
@@ -20,3 +20,39 @@ An enterprise-ready, AI-augmented job tracking and career intelligence ecosystem
 ---
 
 ## 🛠️ System Architecture & Tech Stack
+[ React Client ] ──( HTTP / JSON )──> [ FastAPI Server ] ──> [ Groq Cloud LLM ]
+│
+( File System I/O )
+▼
+[ jobs.json Storage ]
+
+* **Backend Framework:** FastAPI (Python 3.13)
+* **Inference Engine:** Groq Cloud API (`Llama-3.3-70b-versatile`)
+* **Data Validation:** Pydantic Validation Models
+* **Production Server:** Uvicorn ASGI Server
+
+---
+
+## 🚦 REST API Specifications
+
+### Core Endpoints
+
+| Method | Endpoint | Functional Description | Payload / Query | Status Code |
+| :--- | :--- | :--- | :--- | :--- |
+| **GET** | `/jobs` | Retrieve all applications | `?search=Google` \| `?status=Applied` | `200 OK` |
+| **GET** | `/jobs/{id}` | Fetch a target application | Path Variable: `id` | `200 OK` / `404` |
+| **POST** | `/jobs` | Initialize a new application record | JSON Body (Validated) | `201 Created` |
+| **PATCH** | `/jobs/{id}` | Execute delta updates on a record | JSON Partial Body | `200 OK` |
+| **DELETE** | `/jobs/{id}` | Purge an application record | Path Variable: `id` | `200 OK` |
+| **POST** | `/analyze` | Stream job description to Groq AI | `{"description": "..."}` | `200 OK` |
+
+### AI Analysis Response Schema (`POST /analyze`)
+```json
+{
+  "skills": ["React.js", "Python", "FastAPI", "Docker", "AWS Cloud Adoption Framework"],
+  "questions": [
+    "How do you implement custom validation decorators using Pydantic in FastAPI?",
+    "Explain your strategy for migrating monolithic storage systems to cloud-native endpoints."
+  ],
+  "tip": "Align your portfolio's system design diagrams specifically with AWS CAF migration workflows before interviewing."
+}
