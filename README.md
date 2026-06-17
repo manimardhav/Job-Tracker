@@ -1,58 +1,234 @@
+<div align="center">
 
-# 🚀 JobTracker AI — Production-Grade Application Pipeline
+# 🎯 JobTracker AI
 
-An enterprise-ready, AI-augmented job tracking and career intelligence ecosystem. Built using **FastAPI** and powered by **Llama 3.3 (via Groq Cloud)**, this system automates the job tracking lifecycle and uses advanced LLM inference to instantly extract technical requirements and generate real-time interview questions from unstructured job descriptions.
+### An intelligent job application tracker powered by AI
 
-[![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
-[![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Groq Cloud](https://img.shields.io/badge/Groq_Cloud-Llama_3.3-orange?style=for-the-badge)](https://console.groq.com/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](https://opensource.org/licenses/MIT)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.104-009688?style=for-the-badge&logo=fastapi&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Tailwind](https://img.shields.io/badge/Tailwind-3.0-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+![Groq](https://img.shields.io/badge/Groq_AI-Llama_3.3-F55036?style=for-the-badge)
 
----
+[Live Demo](#) · [Backend API](https://job-tracker-backend.onrender.com/docs) · [Report Bug](#)
 
-## 💡 Key Architectural Pillars
+<br/>
 
-*   **Automated LLM Parsing Engine:** Replaced static string matching with structured JSON generation from a 70B parameter model (`llama-3.3-70b-versatile`), enforcing strict output schemas without prompt leakage.
-*   **High-Performance REST Architecture:** Leverages FastAPI's asynchronous ASGI structure for non-blocking I/O operations and lightning-fast request handling.
-*   **Robust Data Integrity:** Implements compile-time and runtime type safety using **Pydantic v2** validation schemas, ensuring complete sanitization of user payloads.
-*   **State Persistence & Scalability:** Designed with clean separation of concerns, utilizing transactional file-based storage with auto-incrementing transactional IDs to handle local state seamlessly.
+![JobTracker AI Dashboard](https://via.placeholder.com/800x450/f8fafc/64748b?text=Add+your+screenshot+here)
 
----
-
-## 🛠️ System Architecture & Tech Stack
-[ React Client ] ──( HTTP / JSON )──> [ FastAPI Server ] ──> [ Groq Cloud LLM ]
-│
-( File System I/O )
-▼
-[ jobs.json Storage ]
-
-* **Backend Framework:** FastAPI (Python 3.13)
-* **Inference Engine:** Groq Cloud API (`Llama-3.3-70b-versatile`)
-* **Data Validation:** Pydantic Validation Models
-* **Production Server:** Uvicorn ASGI Server
+</div>
 
 ---
 
-## 🚦 REST API Specifications
+## 📌 About The Project
 
-### Core Endpoints
+JobTracker AI is a full stack web application that helps you manage your job search intelligently. Built with a React frontend and Python FastAPI backend, it combines traditional CRUD operations with an AI-powered job description analyzer that generates role-specific interview questions and skill gap analysis.
 
-| Method | Endpoint | Functional Description | Payload / Query | Status Code |
-| :--- | :--- | :--- | :--- | :--- |
-| **GET** | `/jobs` | Retrieve all applications | `?search=Google` \| `?status=Applied` | `200 OK` |
-| **GET** | `/jobs/{id}` | Fetch a target application | Path Variable: `id` | `200 OK` / `404` |
-| **POST** | `/jobs` | Initialize a new application record | JSON Body (Validated) | `201 Created` |
-| **PATCH** | `/jobs/{id}` | Execute delta updates on a record | JSON Partial Body | `200 OK` |
-| **DELETE** | `/jobs/{id}` | Purge an application record | Path Variable: `id` | `200 OK` |
-| **POST** | `/analyze` | Stream job description to Groq AI | `{"description": "..."}` | `200 OK` |
+**Why I built this:**
+Most job seekers lose track of applications, miss follow-up deadlines, and walk into interviews unprepared. This app solves all three problems in one place.
 
-### AI Analysis Response Schema (`POST /analyze`)
-```json
-{
-  "skills": ["React.js", "Python", "FastAPI", "Docker", "AWS Cloud Adoption Framework"],
-  "questions": [
-    "How do you implement custom validation decorators using Pydantic in FastAPI?",
-    "Explain your strategy for migrating monolithic storage systems to cloud-native endpoints."
-  ],
-  "tip": "Align your portfolio's system design diagrams specifically with AWS CAF migration workflows before interviewing."
-}
+---
+
+## ✨ Features
+
+### Core Features
+- 📋 **Full CRUD** — Add, view, edit, and delete job applications
+- 🔍 **Smart Search** — Filter jobs by company name or role in real time
+- 🏷️ **Status Tracking** — Track Applied, Interview, Offered, Rejected statuses
+- 📊 **Stats Dashboard** — See total applications, interviews, offers, and success rate at a glance
+- 📁 **Export to CSV** — Download all your applications as a spreadsheet
+
+### Unique Features
+- 🤖 **AI Job Analyzer** — Paste any job description and get:
+  - 6-8 key technical skills required for the role
+  - 8 likely interview questions tailored to that specific job
+  - One actionable preparation tip from an AI career coach
+- ⏰ **Smart Follow-up Reminder** — Automatically flags jobs applied 15+ days ago with no status update
+- 🎨 **Status Color Badges** — Visual status indicators for quick scanning
+- ✅ **Input Validation** — Date format, status enum, and empty field validation on every API call
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+| Technology | Purpose |
+|-----------|---------|
+| React 18 | UI framework with hooks |
+| Tailwind CSS | Utility-first styling |
+| react-hot-toast | Success/error notifications |
+| Fetch API | HTTP requests to backend |
+
+### Backend
+| Technology | Purpose |
+|-----------|---------|
+| Python FastAPI | REST API framework |
+| Pydantic | Data validation and serialization |
+| Groq AI (Llama 3.3) | AI job description analysis |
+| JSON file storage | Persistent data layer |
+| Uvicorn | ASGI server |
+
+---
+
+## 🔌 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/jobs` | Get all jobs |
+| `GET` | `/jobs/{id}` | Get one specific job |
+| `GET` | `/jobs?search=google` | Search by company or role |
+| `GET` | `/jobs?status=Applied` | Filter by status |
+| `POST` | `/jobs` | Add a new job application |
+| `PATCH` | `/jobs/{id}` | Partially update a job |
+| `DELETE` | `/jobs/{id}` | Delete a job |
+| `POST` | `/analyze` | AI job description analyzer |
+
+Full interactive API documentation available at `/docs` (Swagger UI auto-generated by FastAPI).
+
+---
+
+## 🏗️ Architecture
+
+```
+┌─────────────────────────────────────────────────┐
+│                  Browser                         │
+│         React App (Vercel)                       │
+│   Dashboard │ JobForm │ AIAnalyzer │ Navbar      │
+└──────────────────┬──────────────────────────────┘
+                   │ HTTP requests
+                   ▼
+┌─────────────────────────────────────────────────┐
+│              FastAPI Backend (Render)            │
+│   GET /jobs │ POST /jobs │ PATCH │ DELETE        │
+│                POST /analyze                     │
+└──────────┬────────────────────┬─────────────────┘
+           │                    │
+           ▼                    ▼
+    ┌─────────────┐    ┌──────────────────┐
+    │  jobs.json  │    │   Groq AI API    │
+    │  (storage)  │    │  Llama 3.3 70B   │
+    └─────────────┘    └──────────────────┘
+```
+
+---
+
+## 🚀 Run Locally
+
+### Prerequisites
+- Python 3.11+
+- Node.js 18+
+- Groq API key (free at [console.groq.com](https://console.groq.com))
+
+### Backend Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/job-tracker-backend.git
+cd job-tracker-Backend
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Create environment file
+echo "GROQ_API_KEY=your_key_here" > .env
+
+# Start the server
+uvicorn main:app --reload
+```
+
+Backend runs at `http://localhost:8000`
+API docs available at `http://localhost:8000/docs`
+
+### Frontend Setup
+
+```bash
+# Clone the repository
+git clone https://github.com/YOUR_USERNAME/job-tracker-frontend.git
+cd job-tracker-Frontend
+
+# Install dependencies
+npm install
+
+# Create environment file
+echo "REACT_APP_API_URL=http://localhost:8000" > .env
+
+# Start the app
+npm start
+```
+
+Frontend runs at `http://localhost:3000`
+
+---
+
+## 📁 Project Structure
+
+### Backend
+```
+job-tracker-backend/
+├── main.py              # FastAPI app, all routes and logic
+├── requirements.txt     # Python dependencies
+├── jobs.json            # Data storage (auto-created)
+└── .env                 # Environment variables (not committed)
+```
+
+### Frontend
+```
+job-tracker-frontend/
+├── public/
+└── src/
+    ├── components/
+    │   ├── Navbar.jsx       # Navigation bar
+    │   ├── Dashboard.jsx    # Jobs table with stats and filters
+    │   ├── JobForm.jsx      # Add and edit job form
+    │   └── AIAnalyzer.jsx   # AI job description analyzer
+    ├── config.js            # API URL configuration
+    └── App.js               # Root component and routing
+```
+
+---
+
+## 🧠 Key Technical Decisions
+
+**Why FastAPI over Django/Flask?**
+FastAPI provides automatic Swagger documentation, built-in Pydantic validation, and async support — making it ideal for modern REST APIs.
+
+**Why PATCH over PUT for updates?**
+PATCH allows partial updates — users only send the fields they want to change instead of the entire object, making the API more efficient and RESTful.
+
+**Why auto-increment IDs over UUID?**
+For a single-user application, simple integer IDs (1, 2, 3) are more readable and easier to work with in API calls while still being unique.
+
+**Why Groq over OpenAI?**
+Groq offers a generous free tier with no credit card required, making it ideal for portfolio projects and demos.
+
+---
+
+## 🔮 Future Improvements
+
+- [ ] User authentication with JWT tokens
+- [ ] PostgreSQL database instead of JSON file
+- [ ] Email reminders for follow-ups
+- [ ] Resume upload and AI match scoring
+- [ ] Interview notes per application
+- [ ] Analytics charts with application trends
+
+---
+
+## 👨‍💻 Author
+
+**Mani Mardhav**
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Connect-0A66C2?style=for-the-badge&logo=linkedin)](https://linkedin.com/in/yourprofile)
+[![GitHub](https://img.shields.io/badge/GitHub-Follow-181717?style=for-the-badge&logo=github)](https://github.com/yourusername)
+
+---
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+---
+
+<div align="center">
+  Built with ❤️ during final year of B.Tech — one commit at a time.
+</div>
