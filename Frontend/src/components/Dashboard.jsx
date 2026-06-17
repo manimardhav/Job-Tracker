@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import toast from "react-hot-toast"
+import API_URL from "../config"
 
 function Dashboard({ onEdit }) {
     const [jobs, setJobs] = useState([])
@@ -14,7 +15,7 @@ function Dashboard({ onEdit }) {
     const fetchJobs = async () => {
         try {
             setLoading(true)
-            const response = await fetch("http://localhost:8000/jobs")
+            const response = await fetch(`${API_URL}/jobs`)
             const data = await response.json()
             setJobs(data)
         } catch (error) {
@@ -29,7 +30,7 @@ function Dashboard({ onEdit }) {
         const confirmed = window.confirm("Are you sure you want to delete this job?")
         if (!confirmed) return
         try {
-            await fetch(`http://localhost:8000/jobs/${id}`, {
+            await fetch(`${API_URL}/jobs/${id}`, {
                 method: "DELETE"
             })
             toast.success("Job deleted successfully")

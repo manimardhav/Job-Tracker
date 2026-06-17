@@ -1,4 +1,5 @@
 import { useState } from "react"
+import API_URL from "../config"
 
 function AIAnalyzer() {
     const [jobDescription, setJobDescription] = useState("")
@@ -15,7 +16,7 @@ function AIAnalyzer() {
         setLoading(true)
         setResult(null)
         try {
-            const response = await fetch("http://localhost:8000/analyze", {
+            const response = await fetch(`${API_URL}/analyze`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ description: jobDescription })

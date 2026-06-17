@@ -1,5 +1,6 @@
 import { useState } from "react"
 import toast from "react-hot-toast"
+import API_URL from "../config"
 
 function JobForm({ job, onSuccess, onCancel }) {
     const [formData, setFormData] = useState({
@@ -26,8 +27,8 @@ function JobForm({ job, onSuccess, onCancel }) {
         setLoading(true)
         try {
             const url = isEditMode
-                ? `http://localhost:8000/jobs/${job.id}`
-                : "http://localhost:8000/jobs"
+                ? `${API_URL}/jobs/${job.id}`
+                : `${API_URL}/jobs`
             const method = isEditMode ? "PATCH" : "POST"
             const response = await fetch(url, {
                 method: method,
